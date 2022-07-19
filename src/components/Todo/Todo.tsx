@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 import {RiCloseCircleLine} from "react-icons/ri";
 import {TiEdit} from "react-icons/ti";
 
@@ -16,7 +16,9 @@ interface ITodoProps {
 }
 
 const Todo: FC<ITodoProps> = ({todo, completeTodo, removeTodo, editTodo}) => {
+    const [input, setInput] = useState(todo.text);
     const [edit, setEdit] = useState<ITodo>({ id: "", text: "" });
+
     const startEdit = () => {
         setEdit({id: todo.id, text: todo.text});
     }
@@ -26,17 +28,12 @@ const Todo: FC<ITodoProps> = ({todo, completeTodo, removeTodo, editTodo}) => {
         setEdit({ id: "", text: "" });
     }
 
-    const [input, setInput] = useState(todo.text);
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInput(e.target.value);
-    }
-
     return <div className={todo.isComplete ? "todo-row complete" : "todo-row"}>
         { edit.id
             ? <input autoFocus type="text"
                    className="todo-edit"
                    value={input}
-                   onChange={handleChange}
+                   onChange={e => setInput(e.target.value)}
                    onBlur={() => finishEdit(input)}
             />
             : <div onClick={() => completeTodo(todo)}>

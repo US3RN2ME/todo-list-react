@@ -1,4 +1,4 @@
-import React, { FormEvent, ChangeEvent, useState, FC } from 'react';
+import React, { FormEvent, useState, FC } from 'react';
 import { v4 as uuid } from 'uuid';
 import { ITodo } from "./Todo";
 
@@ -8,10 +8,6 @@ interface ITodoFormProps {
 
 const TodoForm:FC<ITodoFormProps> = ({ onSubmit }) => {
     const [input, setInput] = useState("");
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInput(e.target.value);
-    }
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -26,7 +22,7 @@ const TodoForm:FC<ITodoFormProps> = ({ onSubmit }) => {
         <form className="todo-form" onSubmit={handleSubmit}>
             <input autoFocus type="text" placeholder="Add a todo"
                    name="text" className="todo-input"
-                   onChange={handleChange}
+                   onChange={e => setInput(e.target.value)}
                    value={input}
             />
             <button className="todo-button">
