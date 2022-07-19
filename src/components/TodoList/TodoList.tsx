@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import TodoForm from "./TodoForm";
-import Todo, {ITodo} from "./Todo";
+import TodoForm from "../TodoForm/TodoForm";
+import Todo, {ITodo} from "../Todo/Todo";
+import "./TodoList.css"
 
 const TodoList = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
@@ -37,20 +38,22 @@ const TodoList = () => {
     }
 
     return (
-        <div className="todo-list">
+        <div>
             <h1 className="todo-list-header">
                 What's the plan for today?
             </h1>
             <TodoForm onSubmit={addTodo}/>
-            {todos.map(value => (
-                <Todo
-                    key={value.id}
-                    todo={value}
-                    completeTodo={completeTodo}
-                    removeTodo={removeTodo}
-                    editTodo={editTodo}
-                />
-            ))}
+            <div className="todo-list">
+                {todos.map(value => (
+                    <Todo
+                        key={value.id}
+                        todo={value}
+                        completeTodo={completeTodo}
+                        removeTodo={removeTodo}
+                        editTodo={editTodo}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

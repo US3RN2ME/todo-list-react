@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import {RiCloseCircleLine} from "react-icons/ri";
 import {TiEdit} from "react-icons/ti";
+import "./Todo.css"
 
 interface ITodo {
     id: string,
@@ -28,17 +29,20 @@ const Todo: FC<ITodoProps> = ({todo, completeTodo, removeTodo, editTodo}) => {
         setEdit({ id: "", text: "" });
     }
 
-    return <div className={todo.isComplete ? "todo-row complete" : "todo-row"}>
+///TODO
+    return (<div className={todo.isComplete ? "todo-row complete" : "todo-row"}
+                onClick={() => completeTodo(todo)}>
         { edit.id
             ? <input autoFocus type="text"
                    className="todo-edit"
                    value={input}
                    onChange={e => setInput(e.target.value)}
                    onBlur={() => finishEdit(input)}
+                   onKeyDownCapture={e => {
+                       if (e.key === "Enter") finishEdit(input)
+                   }}
             />
-            : <div onClick={() => completeTodo(todo)}>
-                {todo.text}
-            </div>
+            : <div>{todo.text}</div>
         }
         <div className="icons">
             <RiCloseCircleLine
@@ -46,13 +50,12 @@ const Todo: FC<ITodoProps> = ({todo, completeTodo, removeTodo, editTodo}) => {
                 className="delete-icon"
             />
             <TiEdit
-                onClick={() => edit.id
-                    ? finishEdit(input)
-                    : startEdit()}
+                onClick={() => startEdit()}
                 className="edit-icon"
             />
         </div>
     </div>
+    );
 }
 
 export default Todo;
