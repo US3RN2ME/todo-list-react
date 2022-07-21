@@ -3,60 +3,57 @@
     justify-content: space-between;
     align-items: center;
     margin: 4px auto;
-    color: #fff;
-    background: linear-gradient(
-            90deg,
-            rgba(255, 118, 20, 1) 0%,
-            rgba(255, 84, 17, 1) 100%
-    );
+    color: #2a292a;
+    background: #fff;
     font-size: 14px;
     padding: 16px;
-    border-radius: 5px;
-    width: 90%;
+    border-radius: 13px;
+    width: 80%;
 }
 
-.todo-row:nth-child(4n + 1) {
-    background: linear-gradient(
-            90deg,
-            rgba(93, 12, 255, 1) 0%,
-            rgba(155, 0, 250, 1) 100%
-    );
+.complete {
+    text-decoration: line-through;
+    opacity: 0.4;
 }
 
-.todo-row:nth-child(4n + 2) {
-    background: linear-gradient(
-            90deg,
-            rgba(255, 12, 241, 1) 0%,
-            rgba(250, 0, 135, 1) 100%
-    );
+.todo-inputs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.todo-row:nth-child(4n + 3) {
-    background: linear-gradient(
-            90deg,
-            rgba(20, 159, 255, 1) 0%,
-            rgba(17, 122, 255, 1) 100%
-    );
+.todo-checkbox {
+    accent-color: #e0e0e6;
 }
 
 .todo-edit {
+    margin-right: 10px;
+    margin-left: 20px;
     background: rgba(0, 0, 0, 0);
-    color: #fff;
+    color: #2a292a;
     font-size: 14px;
+    width: 100%;
 }
 
 .icons {
     display: flex;
     align-items: center;
-    font-size: 24px;
     cursor: pointer;
+    color: #2a292a;
+}
+
+.edit-icon, .delete-icon {
+    user-select: none;
+    border-radius: 50%;
+    font-size: 20px;
+    margin-right: 5px;
+    transition: 0.1s;
 }
 
 .delete-icon {
-    margin-right: 5px;
-    color: #fff;
+    font-size: 25px;
 }
 
-.edit-icon {
-    color: #fff;
+.delete-icon:hover, .edit-icon:hover {
+   color: #888888;
 }

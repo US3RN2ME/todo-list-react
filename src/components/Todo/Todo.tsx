@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
-import {RiCloseCircleLine} from "react-icons/ri";
-import {TiEdit} from "react-icons/ti";
+import React, {FC, useState} from 'react';
+import {RiCloseLine} from "react-icons/ri";
+import {RiEdit2Line} from "react-icons/ri";
 import "./Todo.css"
 
 interface ITodo {
@@ -30,28 +30,29 @@ const Todo: FC<ITodoProps> = ({todo, completeTodo, removeTodo, editTodo}) => {
     }
 
 ///TODO
-    return (<div className={todo.isComplete ? "todo-row complete" : "todo-row"}
-                onClick={() => completeTodo(todo)}>
-        { edit.id
-            ? <input autoFocus type="text"
-                   className="todo-edit"
-                   value={input}
-                   onChange={e => setInput(e.target.value)}
-                   onBlur={() => finishEdit(input)}
-                   onKeyDownCapture={e => {
-                       if (e.key === "Enter") finishEdit(input)
-                   }}
-            />
-            : <div>{todo.text}</div>
-        }
+    return (
+        <div className={todo.isComplete ? "todo-row complete" : "todo-row"}>
+            <div className="todo-inputs">
+                <input onChange={() => completeTodo(todo)} type="checkbox" className="todo-checkbox" />
+                <input disabled={!edit.id} type="text"
+                       className="todo-edit"
+                       value={input}
+                       onChange={e => setInput(e.target.value)}
+                       onBlur={() => finishEdit(input)}
+                       onKeyDownCapture={e => {
+                           if (e.key === "Enter") finishEdit(input);
+                       }}
+                />
+            </div>
+
         <div className="icons">
-            <RiCloseCircleLine
-                onClick={() => removeTodo(todo)}
-                className="delete-icon"
-            />
-            <TiEdit
+            <RiEdit2Line
                 onClick={() => startEdit()}
                 className="edit-icon"
+            />
+            <RiCloseLine
+                onClick={() => removeTodo(todo)}
+                className="delete-icon"
             />
         </div>
     </div>

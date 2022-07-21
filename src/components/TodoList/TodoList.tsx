@@ -29,18 +29,34 @@ const TodoList = () => {
     }
 
     const completeTodo = (todo: ITodo) => {
-        setTodos(todos => todos.map(value => {
+        const updatedTodos = [...todos];
+        for (const value of updatedTodos) {
             if(value.id === todo.id) {
                 value.isComplete = !value.isComplete;
+                break;
             }
-            return value;
-        }));
+        }
+        setTodos(updatedTodos);
+    }
+
+    const getDate = () => {
+        const date = new Date();
+        const weekday = date.toLocaleDateString(
+            "en-US",
+            { weekday: 'long'}
+        );
+        const month = date.toLocaleDateString(
+            "en-US",
+            { month: 'short'}
+        );
+        return `It's ${weekday}, ${month} ${date.getDate()}`
     }
 
     return (
-        <div>
+        <div className="todo-app">
             <h1 className="todo-list-header">
-                What's the plan for today?
+                <div className="todo-list-name">Good morning</div>
+                <div className="todo-list-date">{getDate()}</div>
             </h1>
             <TodoForm onSubmit={addTodo}/>
             <div className="todo-list">

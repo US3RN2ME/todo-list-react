@@ -10,15 +10,15 @@
 
 body {
   background: linear-gradient(
-          90deg,
-          rgba(48, 16, 255, 1) 0%,
-          rgba(100, 115, 255, 1) 100%
-  );
+          125deg,
+          #dde7f1 25%,
+          #ebecef 100%
+  ) fixed;
 }
 
 h1 {
   margin: 32px 0;
-  color: #fff;
+  color: #353438;
   font-size: 24px;
 }
 

@@ -1,11 +1,18 @@
 import React from 'react';
 import "./App.css";
 import TodoList from "../components/TodoList/TodoList";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
 
 const App = () => (
-    <div className="todo-app">
+    <ThemeProvider theme={darkTheme}>
         <TodoList/>
-    </div>
+    </ThemeProvider>
 );
 
 export default App;
