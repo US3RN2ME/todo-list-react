@@ -1,12 +1,6 @@
-.todo-app {
+.app {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    width: 620px;
-    min-height: 500px;
-    background: transparent;
-    text-align: center;
-    margin: 20px auto;
-    border-radius: 10px;
-    padding-bottom: 32px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 30px;
 }

@@ -1,38 +1,32 @@
-import React, { FormEvent, useState, FC } from 'react';
-import { v4 as uuid } from 'uuid';
-import { ITodo } from "../Todo/Todo";
-import "./TodoForm.css"
+import React, {useState} from 'react';
 import {IoIosAdd} from "react-icons/io"
+import {observer} from "mobx-react";
+import {useLocation} from "react-router-dom";
+import todoListStore from "../../stores/todoListStore";
+import "./TodoForm.css"
 
-interface ITodoFormProps {
-    onSubmit: (e: ITodo) => void
-}
-
-const TodoForm:FC<ITodoFormProps> = ({ onSubmit }) => {
+const TodoForm = () => {
     const [input, setInput] = useState("");
+    const location = useLocation().pathname;
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleClick = () => {
         setInput("");
-        onSubmit({
-            id: uuid(),
-            text: input.trim()
-        });
+        todoListStore.addTodo(input.trim(), location);
     }
 
     return (
-        <form className="todo-form">
+        <div className="todo-form">
             <input  autoFocus type="text"
                     name="text" className="todo-input"
                     onChange={e => setInput(e.target.value)}
                     value={input}
                     onKeyDownCapture={e => {
-                        if (e.key === "Enter") handleSubmit(e);
+                        if (e.key === "Enter") handleClick();
                     }}
             />
-            <IoIosAdd className="todo-button" onClick={handleSubmit}/>
-        </form>
+            <IoIosAdd className="todo-button" onClick={handleClick}/>
+        </div>
     );
 };
 
-export default TodoForm;
+export default observer(TodoForm);

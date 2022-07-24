@@ -1,77 +1,44 @@
-import React, {useState} from 'react';
+import React, {FC} from 'react';
+import {observer} from "mobx-react";
+import {useLocation} from "react-router-dom";
+import Todo from "../Todo/Todo";
 import TodoForm from "../TodoForm/TodoForm";
-import Todo, {ITodo} from "../Todo/Todo";
+import todoListStore, {ITodo} from "../../stores/todoListStore";
+import {getDate, getMonth, getTimeOfDay, getWeekday} from "../../functions/getDate";
 import "./TodoList.css"
 
-const TodoList = () => {
-    const [todos, setTodos] = useState<ITodo[]>([]);
+interface ITodoListProps {
+    title: string;
+}
 
-    const isValid = (todo: ITodo) =>
-        todo.text && !/^\s*$/.test(todo.text);
-
-    const addTodo = (todo: ITodo) => {
-        if(!isValid(todo)) return;
-        setTodos(todos => [todo, ...todos]);
-    }
-
-    const removeTodo = (todo: ITodo) => {
-        setTodos(todos =>
-            todos.filter(value => value.id !== todo.id));
-    }
-
-    const editTodo = (todo: ITodo, text: string) => {
-        if(!isValid(todo)) return;
-        setTodos(todos => todos.map(value =>
-            value.id === todo.id
-                ? {id: value.id, text}
-                : value
-        ));
-    }
-
-    const completeTodo = (todo: ITodo) => {
-        const updatedTodos = [...todos];
-        for (const value of updatedTodos) {
-            if(value.id === todo.id) {
-                value.isComplete = !value.isComplete;
-                break;
-            }
-        }
-        setTodos(updatedTodos);
-    }
-
-    const getDate = () => {
-        const date = new Date();
-        const weekday = date.toLocaleDateString(
-            "en-US",
-            { weekday: 'long'}
-        );
-        const month = date.toLocaleDateString(
-            "en-US",
-            { month: 'short'}
-        );
-        return `It's ${weekday}, ${month} ${date.getDate()}`
-    }
-
-    return (
-        <div className="todo-app">
-            <h1 className="todo-list-header">
-                <div className="todo-list-name">Good morning</div>
-                <div className="todo-list-date">{getDate()}</div>
-            </h1>
-            <TodoForm onSubmit={addTodo}/>
-            <div className="todo-list">
-                {todos.map(value => (
-                    <Todo
-                        key={value.id}
-                        todo={value}
-                        completeTodo={completeTodo}
-                        removeTodo={removeTodo}
-                        editTodo={editTodo}
-                    />
-                ))}
+const TodoList: FC<ITodoListProps> = ({title}) => {
+        const location = useLocation().pathname;
+        return (
+            <div className="todo-app">
+                    <h1 className="todo-list-header">
+                            {location === "/" ?
+                                <>
+                                    <div className="todo-list-name">Good {getTimeOfDay()}</div>
+                                    <div className="todo-list-date">It's {getWeekday()}, {getMonth()} {getDate()}</div>
+                                </>
+                                : <div className="todo-list-name">{title}</div>
+                            }
+                    </h1>
+                    <TodoForm/>
+                    <div className="todo-list">
+                            {(location === "/"
+                                ? todoListStore.getAllTodos()
+                                : todoListStore.getTodos(location))
+                                .map((value: ITodo) => (
+                                    <Todo key={value.id}
+                                          todo={value}
+                                    />
+                                ))}
+                    </div>
             </div>
-        </div>
-    );
-};
+        );
 
-export default TodoList;
+}
+
+
+export default observer(TodoList);

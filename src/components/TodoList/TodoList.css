@@ -1,3 +1,16 @@
+.todo-app {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 620px;
+    min-height: 500px;
+    background: transparent;
+    text-align: center;
+    border-radius: 10px;
+    padding-bottom: 32px;
+    margin: 20px 60px;
+}
+
 .todo-list {
     display: flex;
     flex-direction: column;
