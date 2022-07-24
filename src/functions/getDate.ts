@@ -1,24 +1,24 @@
-const date = new Date();
+const currentDate = new Date();
 
-const getWeekday = () => {
+const getWeekday = (date: Date = currentDate) => {
     return date.toLocaleDateString(
-        "en-US",
-        { weekday: 'long'}
+       "en-US",
+       { weekday: 'long'}
     );
 }
 
-const getDate = () => {
+const getDate = (date: Date = currentDate) => {
     return date.getDate();
 }
 
-const getMonth = () => {
+const getMonth = (date: Date = currentDate) => {
     return date.toLocaleDateString(
-        "en-US",
-        { month: 'short'}
+       "en-US",
+       { month: 'short'}
     );
 }
 
-const getTimeOfDay = () => {
+const getTimeOfDay = (date: Date = currentDate) => {
     const hours = date.getHours();
 
     if (hours < 12) {
