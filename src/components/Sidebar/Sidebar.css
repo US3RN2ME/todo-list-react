@@ -1,0 +1,35 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #ffffff;
+    min-height: 500px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 2px 2px rgba(42, 42, 42, 0.05);
+}
+
+.sidebar-item {
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 15px;
+    width: 80%;
+    font-size: 20px;
+    padding: 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.selected {
+    background: #f5f4f6;
+}
+
+.sidebar-add {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-item:hover {
+    background: #f5f4f6;
+}
