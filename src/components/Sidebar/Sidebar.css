@@ -19,6 +19,9 @@
     padding: 16px;
     text-decoration: none;
     color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .selected {
@@ -28,6 +31,15 @@
 .sidebar-add {
     display: flex;
     align-items: center;
+}
+
+.sidebar-item-remove {
+    user-select: none;
+    border-radius: 50%;
+}
+
+.sidebar-item-remove:hover {
+    background: #ebeaec;
 }
 
 .sidebar-item:hover {
