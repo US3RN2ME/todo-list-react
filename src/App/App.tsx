@@ -12,7 +12,8 @@ const App = () => (
             <Sidebar/>
             <Routes>
                 {sidebarStore.getItems().map(item =>
-                    <Route key={item.path} path={item.path} element={<TodoList title={item.title}/>}/>
+                    <Route key={item.path} path={item.path}
+                           element={<TodoList title={item.title}/>}/>
                 )}
             </Routes>
 

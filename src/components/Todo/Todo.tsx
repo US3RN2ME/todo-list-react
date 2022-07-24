@@ -27,8 +27,8 @@ const Todo: FC<ITodoProps> = ({todo}) => {
     return (
         <div className={todo.isComplete ? "todo-row complete" : "todo-row"}>
             <div className="todo-inputs">
-                <input onChange={() => todoListStore.completeTodo(todo.id, location)}
-                       type="checkbox" className="todo-checkbox"
+                <input type="checkbox" className="todo-checkbox"
+                       onChange={() => todoListStore.completeTodo(todo.id, location)}
                 />
                 <input disabled={!edit.id} type="text"
                        className="todo-edit"
