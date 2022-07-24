@@ -1,0 +1,47 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+    height: 300px;
+    width: 400px;
+    transform: scale(0.5);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-content.active {
+    transform: scale(1);
+}
+
+.modal-close {
+    user-select: none;
+    border-radius: 50%;
+    align-self: flex-end;
+    transition: 0.2s;
+}
+
+.modal-close:hover {
+    background: #ebeaec;
+}
