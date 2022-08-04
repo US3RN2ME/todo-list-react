@@ -1,0 +1,33 @@
+.login-form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 2px 2px rgba(42, 42, 42, 0.05);
+    padding: 20px;
+    height: 300px;
+    width: 400px;
+}
+
+.login-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.login-button {
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 20px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    margin-top: 30px;
+}
+
+.login-button:hover {
+    background: #e0e0e6;
+}
