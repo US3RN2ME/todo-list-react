@@ -22,7 +22,7 @@ const TodoList: FC<ITodoListProps> = ({title}) => {
    return (
       <div className="todo-app">
          <h1 className="todo-list-header">
-            {location === "/"
+            {location === "/lists/home"
                ? <>
                   <div className="todo-list-name">
                      Good {getTimeOfDay()}
@@ -38,7 +38,7 @@ const TodoList: FC<ITodoListProps> = ({title}) => {
          <InputForm handleSubmit={handleSubmit}/>
 
          <div className="todo-list">
-            {(location === "/"
+            {(location === "/lists/home"
                ? todoListStore.getAllTodos()
                : todoListStore.getTodos(location))
                .map((value: ITodo) => (

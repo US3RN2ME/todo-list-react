@@ -7,7 +7,7 @@ interface IInputFormProps {
    handleSubmit: (text: string) => void
 }
 
-const InputForm: FC<IInputFormProps> = ({handleSubmit}) => {
+const InputForm: FC<IInputFormProps> = ({ handleSubmit = (s: string) => {} }) => {
    const [input, setInput] = useState("");
 
    const handleClick = () => {

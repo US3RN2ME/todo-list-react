@@ -4,24 +4,22 @@ import { AiOutlineClose } from 'react-icons/ai'
 import modalStore from '../../stores/modalStore'
 import InputForm from '../InputForm/InputForm'
 import "./Modal.css"
+import { useNavigate } from 'react-router-dom'
 
 
 const Modal = () => {
-   const handleSubmit = (text: string) => {
-      modalStore.handleSubmit(text);
-      modalStore.hide();
-   }
+   const navigate = useNavigate();
 
    return (
-      <div className={modalStore.active ? "modal active" : "modal"}
-           onClick={() => modalStore.hide()}>
-         <div className={modalStore.active ? "modal-content active" : "modal-content"}
+      <div className={"modal active"}
+           onClick={() => navigate("lists/home")}>
+         <div className={"modal-content active"}
               onClick={e => e.stopPropagation()}>
             <AiOutlineClose className="modal-close"
-                            onClick={() => modalStore.hide()}
+                            onClick={() => navigate("lists/home")}
             />
             <h1 className="modal-header">{modalStore.header}</h1>
-            <InputForm handleSubmit={handleSubmit}/>
+            <InputForm handleSubmit={modalStore.handleSubmit}/>
          </div>
       </div>
    );

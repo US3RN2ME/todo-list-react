@@ -28,7 +28,7 @@ class SidebarStore {
 
     @action
     public addItem(title: string) {
-        const key = "/" + title.toLowerCase().replaceAll(" ", "_");
+        const key = title.toLowerCase().replaceAll(" ", "_");
         if(!this._items.get(key)) {
             this._items.set(key, title);
             this.saveToLocalStorage()
@@ -51,7 +51,7 @@ class SidebarStore {
         if(data) {
             this._items = new Map<string, string>(JSON.parse(data));
         } else {
-            this._items.set("/", "Home");
+            this.addItem("Home");
         }
     }
 }

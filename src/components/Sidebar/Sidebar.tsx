@@ -14,43 +14,43 @@ const Sidebar = () => {
 
    const handleModalSubmit = (text: string) => {
       const path = sidebarStore.addItem(text.trim());
-      navigate(path);
+      navigate("/lists/" + path);
    }
 
    const handleRemove = (path: string) => {
-      navigate("/");
       sidebarStore.removeItem(path);
-      todoListStore.removeTodos(path);
+      todoListStore.removeTodos("/lists/" + path);
+      navigate("/lists/home");
    }
 
    return (
-      <div className="sidebar">
+      <div className="sidebar" onClick={e => e.detail == 2 &&
+         e.target === e.currentTarget && navigate("/lists")}
+      >
          {sidebarStore.getItems().map((item: ISidebarItem) => (
             <Link key={item.path} to={item.path}
-                  className={location === item.path
+                  className={location === "/lists/" + item.path
                      ? "sidebar-item selected"
                      : "sidebar-item" }>
                <div className="sidebar-item-text">
                   {item.title}
                </div>
-               {item.path !== "/"
-                  ? <AiOutlineClose className="sidebar-item-remove"
+               {item.path !== "home" &&
+                  <AiOutlineClose className="sidebar-item-remove"
                                     onClick={e => {
                                        e.preventDefault();
                                        handleRemove(item.path);
                                     }}
                   />
-                  : null
                }
             </Link>
          ))}
-         <div className="sidebar-item sidebar-add"
-              onClick={() =>
-                 modalStore.show(
+         <Link to="add" className="sidebar-item sidebar-add"
+              onClick={() => modalStore.show(
                     "Add a task list",
-                    handleModalSubmit)}>
-            Create new list
-         </div>
+                    handleModalSubmit)}
+         >Create new list
+         </Link>
       </div>
    );
 };
