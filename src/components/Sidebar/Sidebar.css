@@ -4,11 +4,11 @@
     align-items: center;
     justify-content: flex-start;
     background: #ffffff;
-    min-height: 500px;
+    height: 90vh;
     border-radius: 15px;
-    width: 300px;
     box-shadow: 2px 2px rgba(42, 42, 42, 0.05);
-    flex-grow: 0.5;
+    flex-grow: 0.2;
+    margin-left: 10vh;
 }
 
 .sidebar-item {

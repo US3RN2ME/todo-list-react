@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { observer } from 'mobx-react'
 import { AiOutlineClose } from 'react-icons/ai'
 import modalStore from '../../stores/modalStore'
@@ -12,11 +12,13 @@ const Modal = () => {
 
    return (
       <div className={"modal active"}
-           onClick={() => navigate("lists/home")}>
+           onClick={() => navigate(-1)}
+      >
          <div className={"modal-content active"}
-              onClick={e => e.stopPropagation()}>
+              onClick={e => e.stopPropagation()}
+         >
             <AiOutlineClose className="modal-close"
-                            onClick={() => navigate("lists/home")}
+                            onClick={() => navigate(-1)}
             />
             <h1 className="modal-header">{modalStore.header}</h1>
             <InputForm handleSubmit={modalStore.handleSubmit}/>

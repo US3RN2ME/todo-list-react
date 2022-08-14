@@ -1,35 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "./LoginForm.css"
 import { useNavigate } from 'react-router-dom'
+import { SubmitHandler, FieldValues, useForm } from 'react-hook-form'
 
 const RegisterForm = () => {
-   const [login, setLogin] = useState("");
-   const [password, setPassword] = useState("");
-   const [repeatPassword, setRepeatPassword] = useState("");
    const navigate = useNavigate();
+   const { register, handleSubmit, formState: { errors } } = useForm();
 
-   const auth = () => {
-      if(login && password && password === repeatPassword) {
-         navigate("/login");
-      }
+   const onSubmit: SubmitHandler<FieldValues> = () => {
+      navigate("/login");
    }
 
    return (
-      <div className="login-form">
-         <input  type="text" className="form-input" placeholder="Login"
-                 name="login" onChange={e => setLogin(e.target.value)}
-                 value={login}
+      <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+         <input  type="text" placeholder="Login"
+                 className={errors.login ? "form-input required" : "form-input"}
+                 {...register("login", { required: true })}
          />
-         <input  type="password" className="form-input" placeholder="Password"
-                 name="password" onChange={e => setPassword(e.target.value)}
-                 value={password}
+         <input  type="password" placeholder="Password"
+                 className={errors.password ? "form-input required" : "form-input"}
+                 {...register("password", { required: true })}
          />
-         <input  type="password" className="form-input" placeholder="Repeat Password"
-                 name="repeat-password" onChange={e => setRepeatPassword(e.target.value)}
-                 value={repeatPassword}
+         <input  type="password" placeholder="Repeat Password"
+                 className={errors.repeatPassword ? "form-input required" : "form-input"}
+                 {...register("repeatPassword", { required: true })}
          />
-         <button className="login-button" onClick={auth}>Sign up</button>
-      </div>
+         <button className="login-button" type="submit">Sign up</button>
+      </form>
    )
 }
 

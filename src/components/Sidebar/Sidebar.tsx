@@ -12,6 +12,13 @@ const Sidebar = () => {
    const location = useLocation().pathname;
    const navigate = useNavigate();
 
+
+   const showModal = () => {
+      modalStore.header = "Add sidebar item";
+      modalStore.handleSubmit = handleModalSubmit;
+      navigate("add");
+   }
+
    const handleModalSubmit = (text: string) => {
       const path = sidebarStore.addItem(text.trim());
       navigate("/lists/" + path);
@@ -45,12 +52,10 @@ const Sidebar = () => {
                }
             </Link>
          ))}
-         <Link to="add" className="sidebar-item sidebar-add"
-              onClick={() => modalStore.show(
-                    "Add a task list",
-                    handleModalSubmit)}
-         >Create new list
-         </Link>
+         <div className="sidebar-item sidebar-add"
+              onClick={showModal}>
+            Create new list
+         </div>
       </div>
    );
 };

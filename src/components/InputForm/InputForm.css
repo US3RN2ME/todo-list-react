@@ -18,6 +18,10 @@
     color: #888888;
 }
 
+.required {
+    outline: 1px solid rgba(0, 0, 0, 0.4);
+}
+
 .form-button {
     user-select: none;
     border-radius: 50%;
