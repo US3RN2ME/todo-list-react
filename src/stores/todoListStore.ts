@@ -1,17 +1,17 @@
-import {action, computed, makeAutoObservable} from "mobx";
+import { action, computed, makeAutoObservable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 interface ITodo {
-    id: string,
-    text: string,
-    parent?: string,
-    isComplete?: boolean
+    id: string;
+    text: string;
+    parent?: string;
+    isComplete?: boolean;
 }
 
 type todo = {
-    text: string,
-    isComplete?: boolean
-}
+    text: string;
+    isComplete?: boolean;
+};
 type valueType = Map<string, todo>;
 
 class TodoListStore {
@@ -28,50 +28,56 @@ class TodoListStore {
 
     @computed
     public getTodos(title: string) {
-        return Array.from(this.getStore(title),
-           ([key, val]) => ({id: key, ...val})
-        ).reverse() as ITodo[];
+        return Array.from(this.getStore(title), ([key, val]) => ({
+            id: key,
+            ...val,
+        })).reverse() as ITodo[];
     }
 
     @computed
     public getAllTodos() {
-        return Array.from(this.todos, v =>
-           Array.from(v[1], ([key, val]) =>
-              ({id: key, parent: v[0], ...val}))
-        ).flat().reverse() as ITodo[];
+        return Array.from(this.todos, (v) =>
+            Array.from(v[1], ([key, val]) => ({
+                id: key,
+                parent: v[0],
+                ...val,
+            }))
+        )
+            .flat()
+            .reverse() as ITodo[];
     }
 
     @action
     public addTodo(text: string, title: string) {
-        if(!TodoListStore.isValid(text)) return;
-        this.getStore(title).set(uuid(), {text});
+        if (!TodoListStore.isValid(text)) return;
+        this.getStore(title).set(uuid(), { text });
         this.saveToLocalStorage();
     }
 
     @action
-    public removeTodo (todoId: string, title: string) {
+    public removeTodo(todoId: string, title: string) {
         this.getStore(title).delete(todoId);
         this.saveToLocalStorage();
     }
 
     @action
-    public removeTodos (title: string) {
-        if(this.todos.delete(title)) {
+    public removeTodos(title: string) {
+        if (this.todos.delete(title)) {
             this.saveToLocalStorage();
         }
     }
 
     @action
-    public editTodo (todoId: string, text: string, title: string) {
-        if(!TodoListStore.isValid(text)) return;
-        this.getStore(title).set(todoId, {text});
+    public editTodo(todoId: string, text: string, title: string) {
+        if (!TodoListStore.isValid(text)) return;
+        this.getStore(title).set(todoId, { text });
         this.saveToLocalStorage();
     }
 
     @action
-    public completeTodo (todoId: string, title: string) {
+    public completeTodo(todoId: string, title: string) {
         const item = this.getStore(title).get(todoId) as todo;
-        if(!item) console.log(this.getStore(title));
+        if (!item) console.log(this.getStore(title));
         item.isComplete = !item.isComplete;
         this.getStore(title).set(todoId, item);
         this.saveToLocalStorage();
@@ -80,9 +86,8 @@ class TodoListStore {
     @action
     private getStore(title: string) {
         const value = this.todos.get(title);
-        return (value
-              ? value
-              : this.todos.set(title, new Map()).get(title)
+        return (
+            value ? value : this.todos.set(title, new Map()).get(title)
         ) as valueType;
     }
 
@@ -92,10 +97,10 @@ class TodoListStore {
 
     private readFromLocalStorage() {
         const data = localStorage.todoListItems;
-        if(data) {
+        if (data) {
             JSON.parse(data).forEach((v: any) => {
                 this.todos.set(v[0], new Map<string, todo>(v[1]));
-            })
+            });
         }
     }
 }
@@ -103,4 +108,4 @@ class TodoListStore {
 const todoListStore = new TodoListStore();
 
 export default todoListStore;
-export type {ITodo}
+export type { ITodo };

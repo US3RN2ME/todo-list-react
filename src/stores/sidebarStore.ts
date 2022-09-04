@@ -1,10 +1,9 @@
-import {action, computed, makeAutoObservable} from "mobx";
+import { action, computed, makeAutoObservable } from 'mobx';
 
 interface ISidebarItem {
-    title: string,
-    path: string
+    title: string;
+    path: string;
 }
-
 
 class SidebarStore {
     private _items = new Map<string, string>();
@@ -21,25 +20,27 @@ class SidebarStore {
 
     @action
     public removeItem(path: string) {
-        if(this._items.delete(path)) {
-            this.saveToLocalStorage()
+        if (this._items.delete(path)) {
+            this.saveToLocalStorage();
         }
     }
 
     @action
     public addItem(title: string) {
-        const key = title.toLowerCase().replaceAll(" ", "_");
-        if(!this._items.get(key)) {
+        const key = title.toLowerCase().replaceAll(' ', '_');
+        if (!this._items.get(key)) {
             this._items.set(key, title);
-            this.saveToLocalStorage()
+            this.saveToLocalStorage();
         }
         return key;
     }
 
     @computed
     public getItems() {
-        return Array.from(this._items, ([key, val]) =>
-           ({ path: key, title: val })) as ISidebarItem[];
+        return Array.from(this._items, ([key, val]) => ({
+            path: key,
+            title: val,
+        })) as ISidebarItem[];
     }
 
     private saveToLocalStorage() {
@@ -47,11 +48,11 @@ class SidebarStore {
     }
 
     private readFromLocalStorage() {
-        const data = localStorage.getItem('sidebarItems')
-        if(data) {
+        const data = localStorage.getItem('sidebarItems');
+        if (data) {
             this._items = new Map<string, string>(JSON.parse(data));
         } else {
-            this.addItem("Home");
+            this.addItem('Home');
         }
     }
 }
@@ -60,4 +61,4 @@ const sidebarStore = new SidebarStore();
 
 export default sidebarStore;
 
-export type {ISidebarItem}
+export type { ISidebarItem };
