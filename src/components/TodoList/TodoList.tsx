@@ -2,50 +2,30 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react';
 import Todo from '../Todo/Todo';
 import InputForm from '../InputForm/InputForm';
-import todoListStore, { ITodo } from '../../stores/todoListStore';
-import {
-    getDate,
-    getMonth,
-    getTimeOfDay,
-    getWeekday,
-} from '../../functions/getDate';
 import './TodoList.css';
-import useTodoListHook from '../../hooks/useTodoListHook';
+import { TodoListDto } from '../../generated-api';
+import todoListController from '../../stores/todoListController';
 
-interface ITodoListProps {
-    title: string;
+interface TodoListProps {
+    todoList: TodoListDto;
 }
 
-const TodoList: FC<ITodoListProps> = ({ title }) => {
-    const { location, handleSubmit } = useTodoListHook();
+const TodoList: FC<TodoListProps> = ({ todoList }) => {
+    const handleSubmit = async (text: string) => {
+        await todoListController.addTodo(todoList.id, text.trim());
+    };
 
     return (
         <div className="todo-app">
             <h1 className="todo-list-header">
-                {location === '/lists/home' ? (
-                    <>
-                        <div className="todo-list-name">
-                            Good {getTimeOfDay()}
-                        </div>
-                        <div className="todo-list-date">
-                            It's {getWeekday()}, {getMonth()} {getDate()}
-                        </div>
-                    </>
-                ) : (
-                    <div className="todo-list-name">{title}</div>
-                )}
+                <div className="todo-list-name">{todoList.name}</div>
             </h1>
 
-            {location !== '/lists/home' && (
-                <InputForm handleSubmit={handleSubmit} />
-            )}
+            <InputForm handleClick={handleSubmit} />
 
             <div className="todo-list">
-                {(location === '/lists/home'
-                    ? todoListStore.getAllTodos()
-                    : todoListStore.getTodos(location)
-                ).map((value: ITodo) => (
-                    <Todo key={value.id} todo={value} />
+                {todoList.todos.map((value) => (
+                    <Todo key={value.id} todo={value} showParent={false} />
                 ))}
             </div>
         </div>

@@ -1,30 +1,37 @@
 import React, { FC } from 'react';
 import { IoIosAdd } from 'react-icons/io';
 import './InputForm.css';
-import useInputFormHook from '../../hooks/useInputFormHook';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-export interface IInputFormProps {
-    handleSubmit: (text: string) => void;
+export interface InputFormProps {
+    handleClick: (text: string) => void;
 }
 
-const InputForm: FC<IInputFormProps> = ({ handleSubmit }) => {
-    const { input, setInput, handleClick } = useInputFormHook({ handleSubmit });
+const InputForm: FC<InputFormProps> = ({ handleClick }) => {
+    const { register, handleSubmit, reset } = useForm();
+
+    const onSubmit: SubmitHandler<FieldValues> = (fieldValues) => {
+        handleClick(fieldValues.input);
+        reset({ input: '' });
+    };
 
     return (
-        <div className="input-form">
+        <form className="input-form" onSubmit={handleSubmit(onSubmit)}>
             <input
                 autoFocus
                 type="text"
-                name="text"
                 className="form-input"
-                onChange={(e) => setInput(e.target.value)}
-                value={input}
-                onKeyDownCapture={(e) => {
-                    if (e.key === 'Enter') handleClick();
-                }}
+                {...register('input', {
+                    required: true,
+                    pattern: /^[A-Za-z0-9]*$/,
+                })}
             />
-            <IoIosAdd className="form-button" onClick={handleClick} />
-        </div>
+
+            <IoIosAdd
+                className="form-button"
+                onClick={handleSubmit(onSubmit)}
+            />
+        </form>
     );
 };
 

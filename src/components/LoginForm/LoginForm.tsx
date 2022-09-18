@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginForm.css';
-import useLoginFormHook from '../../hooks/useLoginFormHook';
+import { useNavigate } from 'react-router-dom';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import authController from '../../stores/authController';
 
 const LoginForm = () => {
-    const { navigate, register, handleSubmit, errors, onSubmit } =
-        useLoginFormHook();
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit: SubmitHandler<FieldValues> = async (fieldValues) => {
+        const { email, password } = fieldValues;
+        try {
+            await authController.login(email, password);
+            setErrorMessage('');
+            navigate('/lists');
+        } catch (ex) {
+            setErrorMessage((ex as Error).message);
+        }
+    };
 
     return (
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
