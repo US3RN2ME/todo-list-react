@@ -24,9 +24,15 @@ const TodoList: FC<TodoListProps> = ({ todoList }) => {
             <InputForm handleClick={handleSubmit} />
 
             <div className="todo-list">
-                {todoList.todos.map((value) => (
-                    <Todo key={value.id} todo={value} showParent={false} />
-                ))}
+                {todoList.todos
+                    .slice()
+                    .sort(
+                        (a, b) =>
+                            Date.parse(a.createdAt) - Date.parse(b.createdAt)
+                    )
+                    .map((value) => (
+                        <Todo key={value.id} todo={value} showParent={false} />
+                    ))}
             </div>
         </div>
     );

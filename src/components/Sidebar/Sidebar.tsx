@@ -7,7 +7,6 @@ import SidebarItem from './SidebarItem';
 import authController from '../../stores/authController';
 
 const Sidebar = () => {
-    const [selectedId, setSelectedId] = useState('home');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,8 +24,6 @@ const Sidebar = () => {
                     todoListId="home"
                     todoListName="Home"
                     path="home"
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
                     removable={false}
                 />
                 {todoListController.todoLists.map((item) => (
@@ -35,8 +32,6 @@ const Sidebar = () => {
                         todoListId={item.id}
                         todoListName={item.name}
                         path={item.name}
-                        selectedId={selectedId}
-                        setSelectedId={setSelectedId}
                         removable={true}
                     />
                 ))}
@@ -44,8 +39,6 @@ const Sidebar = () => {
                     todoListId="add"
                     todoListName="Add List"
                     path="add"
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
                     removable={false}
                 />
             </div>

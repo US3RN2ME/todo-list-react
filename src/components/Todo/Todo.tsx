@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import './Todo.css';
 import { TodoDto } from '../../generated-api';
 import todoListController from '../../stores/todoListController';
+import { useNavigate } from 'react-router-dom';
 
 export interface TodoProps {
     todo: TodoDto;
@@ -14,6 +15,9 @@ export interface TodoProps {
 const Todo: FC<TodoProps> = ({ todo, showParent }) => {
     const [input, setInput] = useState(todo.name);
     const [editId, setEditId] = useState('');
+    const navigate = useNavigate();
+
+    const parentName = todoListController.getListById(todo.todoListId).name;
 
     const startEdit = () => {
         if (todo.isComplete) return;
@@ -26,7 +30,7 @@ const Todo: FC<TodoProps> = ({ todo, showParent }) => {
     };
 
     return (
-        <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'}>
+        <div className={todo.isComplete ? 'todo-row complete-row' : 'todo-row'}>
             <div className="todo-inputs">
                 <input
                     type="checkbox"
@@ -37,7 +41,11 @@ const Todo: FC<TodoProps> = ({ todo, showParent }) => {
                 <input
                     disabled={!editId}
                     type="text"
-                    className="todo-edit"
+                    className={
+                        todo.isComplete
+                            ? 'todo-edit complete-text'
+                            : 'todo-edit'
+                    }
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onBlur={() => finishEdit(input)}
@@ -47,8 +55,11 @@ const Todo: FC<TodoProps> = ({ todo, showParent }) => {
                 />
             </div>
             {showParent && (
-                <div className="todo-parent">
-                    {todoListController.getListById(todo.todoListId).name}
+                <div
+                    className="todo-parent"
+                    onClick={() => navigate('/lists/' + parentName)}
+                >
+                    {parentName}
                 </div>
             )}
             <div className="icons">

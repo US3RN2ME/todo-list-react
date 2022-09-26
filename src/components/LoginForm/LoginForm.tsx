@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,6 +24,8 @@ const LoginForm = () => {
         }
     };
 
+    useEffect(() => authController.logout(), []);
+
     return (
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <input
@@ -41,6 +43,8 @@ const LoginForm = () => {
                 placeholder="Password"
                 {...register('password', { required: true })}
             />
+
+            <div className="form-error-message">{errorMessage}</div>
 
             <div className="login-buttons">
                 <button className="login-button" type="submit">

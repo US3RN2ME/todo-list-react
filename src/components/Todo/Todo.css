@@ -12,8 +12,11 @@
     box-shadow: 2px 2px rgba(42, 42, 42, 0.05);
 }
 
-.complete {
+.complete-text {
     text-decoration: line-through;
+}
+
+.complete-row {
     opacity: 0.4;
 }
 
@@ -34,6 +37,18 @@
     color: #2a292a;
     font-size: 14px;
     width: 100%;
+}
+
+.todo-parent {
+    background-color: #cdcdcd;
+    padding: 2px;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.todo-parent:hover {
+    background-color: #dcdcdc;
 }
 
 .icons {

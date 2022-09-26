@@ -15,7 +15,8 @@ class Api {
         globalAxios.interceptors.response.use(
             (response) => response,
             (error: AxiosError) => {
-                if (error.code == '401') authController.logout();
+                if (error.response && error.response.status == 401)
+                    authController.logout();
                 return error;
             }
         );
