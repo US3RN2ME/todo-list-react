@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import React, { FC } from 'react';
 import todoListController from '../../stores/todoListController';
 import { observer } from 'mobx-react';
+import './Sidebar.css';
 
 interface SidebarItemProps {
     todoListId: string;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import './Sidebar.css';
 import todoListController from '../../stores/todoListController';
 import SidebarItem from './SidebarItem';
 import authController from '../../stores/authController';
+import './Sidebar.css';
 
 const Sidebar = () => {
     const navigate = useNavigate();
